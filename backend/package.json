@@ -1,0 +1,12 @@
+{
+  "name": "students-review",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "dev=1 node server.js",
+    "prod": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
