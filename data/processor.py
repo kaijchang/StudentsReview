@@ -3,9 +3,15 @@
 import csv
 import os
 
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://localhost:27017/')
+db = client['StudentsReview']
+schools = db['schools']
+
 
 def insert_into_mongo_db(json):
-    pass
+    schools.insert_one(json)
 
 
 with open(os.path.join(os.path.dirname(__file__),
