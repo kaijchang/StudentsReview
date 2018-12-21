@@ -32,7 +32,7 @@ for row in reader:
         )
     }
 
-    if 'SCHOOL' not in school['SCHNAM09']:
+    if all(word not in school['SCHNAM09'] for word in ['CTR', 'SCH', 'SCHOOL', 'ACADEMY', 'CONSERVATORY']):
         school['SCHNAM09'] += ' SCHOOL'
 
     insert_into_mongo_db(school)

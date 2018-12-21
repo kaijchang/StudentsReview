@@ -10,10 +10,10 @@ export default class SearchContainer extends Component {
 
         this.SchoolStore = this.props.SchoolStore;
         this.SchoolStore.onChange(
-            results => {this.setState({
-                results: results
-            })}
-        );
+            results => this.setState({
+                    results: results
+            })
+         );
 
         this.state = {
             query: '',

@@ -7,15 +7,24 @@ import SchoolService from './access/SchoolService';
 
 import './App.css';
 
+
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        this.current_container = 'search';
+    }
+
     render() {
-        return (
-            <div>
-                <SearchContainer
-                    SchoolStore={ new SchoolStore(new SchoolService('api/schools')) }
-                />
-            </div>
-        );
+        let container;
+
+        if (this.current_container === 'search') {
+             container = <SearchContainer
+                SchoolStore={ new SchoolStore(new SchoolService('api/schools')) }
+            />
+        }
+
+        return container;
     }
 }
 
