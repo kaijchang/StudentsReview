@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
-import { Container } from 'reactstrap';
+import { Container, ListGroup } from 'reactstrap';
 
 import SearchBar from './SearchBar';
+import SearchResult from './SearchResult';
 
 export default class SearchContainer extends Component {
     constructor(props) {
         super(props);
 
+        this.SchoolStore = this.props.SchoolStore;
+        this.SchoolStore.onChange(
+            results => {this.setState({
+                results: results
+            })}
+        );
+
         this.state = {
-            query: ''
+            query: '',
+            results: []
         };
 
         this.handleInput = this.handleInput.bind(this);
@@ -18,6 +27,8 @@ export default class SearchContainer extends Component {
         this.setState({
             query: event.target.value
         });
+
+        this.SchoolStore.setQuery(event.target.value);
     }
 
     render() {
@@ -27,6 +38,14 @@ export default class SearchContainer extends Component {
                     value={ this.state.query }
                     onChange={ this.handleInput }
                 />
-            </Container>);
+                <ListGroup>
+                    {
+                        this.state.results.map(school =>
+                            <SearchResult key={ this.state.results.indexOf(school) } { ...school }/>
+                        )
+                    }
+                </ListGroup>
+            </Container>
+        );
     }
 }
