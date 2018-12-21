@@ -8,6 +8,7 @@ export default class SearchBar extends Component {
                 value={ this.props.value }
                 onChange={ this.props.onChange }
                 placeholder={ 'Search for your High School...' }
-            />);
+            />
+        );
     }
 }
