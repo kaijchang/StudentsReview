@@ -9,6 +9,7 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['StudentsReview']
 schools = db['schools']
 
+schools.drop()
 
 def insert_into_mongo_db(json):
     schools.insert_one(json)
@@ -24,9 +25,14 @@ for row in reader:
     if row[headers.index('LEVEL09')] != '3':
         continue
 
-    insert_into_mongo_db({
+    school = {
         k: v for (k, v) in zip(
             headers,
             row
         )
-    })
+    }
+
+    if 'SCHOOL' not in school['SCHNAM09']:
+        school['SCHNAM09'] += ' SCHOOL'
+
+    insert_into_mongo_db(school)
