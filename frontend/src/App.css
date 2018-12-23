@@ -2,6 +2,7 @@
     position: fixed;
     height: 7.5% !important;
     width: 50% !important;
+    font-size: 2.5vh !important;
     text-align: center;
     top: 40%;
     left: 50%;
@@ -9,9 +10,9 @@
 }
 
 .SearchContainer {
+    position: absolute;
     height: 100%;
     margin: 0;
-    position: absolute;
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);

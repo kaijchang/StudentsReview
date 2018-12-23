@@ -5,11 +5,9 @@ export default class SchoolService {
         this.serviceUrl = serviceUrl;
     }
 
-    get(query) {
+    query(query) {
         return axios.get(this.serviceUrl, {
-            params: {
-                name: query
-            }
+            params: query
         })
             .then(resp => resp.data);
     }

@@ -7,17 +7,37 @@ export default class SchoolStore {
         this.schools = [];
 
         this.eventEmitter = new MicroEmitter();
+
+        this.fetch = this.fetch.bind(this);
+        this.setSchools = this.setSchools.bind(this);
     }
 
     fetch() {
-        return this.dataService.get(this.query)
-            .then(this.setSchools.bind(this));
+        this.dataService.query({
+            SCHNAM09: this.query,
+            fuzzy: true,
+            limit: 10
+        })
+            .then(this.setSchools);
     }
 
-    setQuery(query) {
+    setSearchQuery(query) {
         this.query = query;
         clearTimeout(this.timer);
-        this.timer = setTimeout(this.fetch.bind(this), 500);
+        this.timer = setTimeout(this.fetch, 500);
+    }
+
+    getByNCESSCH(NCESSCH) {
+        const schoolIndex = this.schools.findIndex(school => school.NCESSCH === NCESSCH);
+
+        if (schoolIndex !== -1) {
+            return new Promise(resolve => resolve(this.schools[schoolIndex]));
+        }
+
+        return this.dataService.query({
+            NCESSCH: NCESSCH
+        })
+            .then(data => data[0])
     }
 
     setSchools(newSchools){

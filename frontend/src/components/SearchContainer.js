@@ -8,7 +8,7 @@ export default class SearchContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.SchoolStore = this.props.SchoolStore;
+        this.SchoolStore = props.SchoolStore;
         this.SchoolStore.onChange(
             results => this.setState({
                     results: results
@@ -21,6 +21,7 @@ export default class SearchContainer extends Component {
         };
 
         this.handleInput = this.handleInput.bind(this);
+        this.changeContainer = this.props.changeContainer;
     }
 
     handleInput(event) {
@@ -28,7 +29,7 @@ export default class SearchContainer extends Component {
             query: event.target.value
         });
 
-        this.SchoolStore.setQuery(event.target.value);
+        this.SchoolStore.setSearchQuery(event.target.value);
     }
 
     render() {
@@ -41,7 +42,11 @@ export default class SearchContainer extends Component {
                 <ListGroup>
                     {
                         this.state.results.map(school =>
-                            <SearchResult key={ this.state.results.indexOf(school) } { ...school }/>
+                            <SearchResult
+                                changeContainer={ this.changeContainer }
+                                key={ this.state.results.indexOf(school) }
+                                { ...school }
+                            />
                         )
                     }
                 </ListGroup>

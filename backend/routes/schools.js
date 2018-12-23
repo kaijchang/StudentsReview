@@ -1,20 +1,45 @@
 const School = require('../models/School');
 
 module.exports = (req, res) => {
-    if (!req.query.name) return res.status(500), res.send({error: 'An error occurred. If unexpected, raise an issue at https://github.com/kajchang/StudentsReview/issues'});
-    School.find({
-        SCHNAM09: new RegExp(req.query.name.toUpperCase()
-                                .split(' ')
-                                .map(word => `(?=.*\\b${word}\\b)`)
-                                .join('')
-                                + '.*'
-        )
-    }).limit(10)
+    const query = req.query;
+
+    if (isNaN(parseInt(query.limit))) {
+        query.limit = 1;
+    }
+
+    if (typeof (query.fuzzy === 'true' || (query.fuzzy  === 'false' ? false : query.fuzzy)) !== 'boolean') {
+        query.fuzzy = false;
+    }
+
+    const limit = parseInt(query.limit) > 10 ? 10 : parseInt(query.limit);
+    const fuzzy = query.fuzzy;
+
+    delete query.limit;
+    delete query.fuzzy;
+
+    if (!Object.keys(query).every(param => typeof query[param] === 'string')) {
+        res.status(400);
+        res.send({error: 'All parameters must be strings. If unexpected, raise an issue at https://github.com/kajchang/StudentsReview/issues'});
+    }
+
+    if (fuzzy) {
+        Object.keys(query).map(param => {
+            query[param] = new RegExp(query[param].toUpperCase()
+                    .split(' ')
+                    .map(word => `(?=.*\\b${word}\\b)`)
+                    .join('')
+                + '.*'
+            )
+        });
+    }
+
+    School
+        .find(query)
+        .limit(limit)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
-            console.log(err);
             res.status(500);
             res.send({error: 'An error occurred. If unexpected, raise an issue at https://github.com/kajchang/StudentsReview/issues'});
         });
