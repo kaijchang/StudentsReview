@@ -4,6 +4,8 @@ import { Container, ListGroup } from 'reactstrap';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 
+import '../styles/SearchContainer.css';
+
 export default class SearchContainer extends Component {
     constructor(props) {
         super(props);

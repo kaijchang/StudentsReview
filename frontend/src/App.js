@@ -9,8 +9,6 @@ import SchoolContainer from './components/SchoolContainer';
 import SchoolStore from './domain/SchoolStore';
 import SchoolService from './access/SchoolService';
 
-import './App.css';
-
 
 class App extends Component {
     constructor(props) {
@@ -71,6 +69,7 @@ class App extends Component {
         } else if (this.state.current_container === 'school') {
              container = <SchoolContainer
                  SchoolStore={ this.SchoolStore }
+                 NCESSCH={ location.pathname.split('/')[1] }
              />
         }
 
