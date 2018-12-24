@@ -24,16 +24,23 @@ export default class SchoolContainer extends Component {
         if (!Object.keys(this.state.school).length) {
             return (
                 <Container className={ 'SchoolContainer' }>
-                </Container>)
+                </Container>
+            );
         }
 
-        const { SCHNAM09 } = this.state.school;
+        const { SCHNAM09, Location } = this.state.school;
+        const [ignore, long, lat] = /\((-?\d{2,3}.\d{6}), (-?\d{2,3}.\d{6})\)/.exec(Location);
 
         return (
             <Container className={ 'SchoolContainer' }>
                 <h1 className={ 'SchoolName' }>{ SCHNAM09.toLowerCase() }</h1>
+                <iframe
+                    title={ 'Map' }
+                    className={ 'Map' }
+                    width={ 600 }
+                    height={ 500 }
+                    src={ `https://maps.google.com/maps?q=@${long},${lat}&t=&z=15&ie=UTF8&iwloc=&output=embed` }/>
             </Container>
         );
     }
-
 }
