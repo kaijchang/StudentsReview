@@ -16,20 +16,42 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.changeContainer = this.changeContainer.bind(this);
+        this._mounted = false;
 
-        if (location.pathname !== '/') {
-            this.state = {
-                current_container: 'school'
-            };
-        } else {
-            this.state = {
-                current_container: 'search'
-            };
-        }
+        this.changeContainer = this.changeContainer.bind(this);
+        this.decideContainer = this.decideContainer.bind(this);
 
         this.SchoolService = new SchoolService('api/schools');
         this.SchoolStore = new SchoolStore(this.SchoolService);
+
+        this.decideContainer();
+
+        window.onpopstate = this.decideContainer;
+    }
+
+    componentDidMount() {
+        this._mounted = true;
+    }
+
+    decideContainer() {
+        let container_name;
+
+        if (location.pathname === '/') {
+            container_name = 'search';
+        } else if (location.pathname.split('/').length === 2) {
+            container_name = 'school';
+        }
+
+        if (this._mounted) {
+            this.setState({
+                current_container: container_name
+            });
+        } else {
+            this.state = {
+                current_container: container_name
+            };
+        }
+
     }
 
     changeContainer(container_name) {

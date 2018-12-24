@@ -13,7 +13,7 @@ export default class SearchResult extends Component {
 
 
     onClick() {
-        history.replaceState({}, this.props.NCESSCH, `/${this.props.NCESSCH}`);
+        history.pushState({}, this.props.NCESSCH, `/${this.props.NCESSCH}`);
 
         this.props.changeContainer('school');
     }

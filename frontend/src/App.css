@@ -25,6 +25,7 @@
     margin-right: auto;
     text-align: center;
     text-transform: capitalize;
+    cursor: pointer;
 }
 
 .SearchResult:hover {
