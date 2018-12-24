@@ -1,6 +1,7 @@
 # processes data from dataset and inserts into MongoDB
 
 import csv
+import re
 import os
 
 from pymongo import MongoClient
@@ -32,7 +33,7 @@ for row in reader:
         )
     }
 
-    school['SCHNAM09'] = school['SCHNAM09'].replace(' SCH', ' SCHOOL')
+    school['SCHNAM09'] = re.sub(r'SCH$', 'SCHOOL', school['SCHNAM09'])
 
     if all(word not in school['SCHNAM09'] for word in ['CTR', 'SCHOOL', 'ACADEMY', 'CONSERVATORY']):
         school['SCHNAM09'] += ' SCHOOL'
