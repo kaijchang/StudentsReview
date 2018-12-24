@@ -22,10 +22,7 @@ with open(os.path.join(os.path.dirname(__file__),
 
 headers = next(reader)
 
-for row in reader:
-    if row[headers.index('LEVEL09')] != '3':
-        continue
-
+for row in filter(lambda school: school[headers.index('LEVEL09')] == '3', reader):
     school = {
         k: v for (k, v) in zip(
             headers,
