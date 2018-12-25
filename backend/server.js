@@ -46,10 +46,10 @@ if (isDev) {
             path.join(__dirname, '..', 'frontend', 'build')
         )
     );
+    register(https_server);
     https_server.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
     });
-    register(https_server);
     https_server = https.createServer(
         options,
         https_server
