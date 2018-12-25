@@ -30,9 +30,10 @@ class App extends Component {
                         }.bind(this) }/>
                     <Route
                         path='/school/:NCESSCH(\d{12})'
-                        component={ function() {
+                        component={ function({ match }) {
                             return <SchoolContainer
                                 SchoolStore={ this.SchoolStore }
+                                NCESSCH={ match.params.NCESSCH }
                             />
                         }.bind(this) }
                     />
