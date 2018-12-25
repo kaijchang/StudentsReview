@@ -1,7 +1,5 @@
-/*global event*/
-/*eslint no-restricted-globals: 0*/
-
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import SearchContainer from './components/SearchContainer';
 import SchoolContainer from './components/SchoolContainer';
@@ -14,66 +12,33 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this._mounted = false;
-
-        this.changeContainer = this.changeContainer.bind(this);
-        this.decideContainer = this.decideContainer.bind(this);
-
-        this.SchoolService = new SchoolService('api/schools');
+        this.SchoolService = new SchoolService('/api/schools');
         this.SchoolStore = new SchoolStore(this.SchoolService);
-
-        this.decideContainer();
-
-        window.onpopstate = this.decideContainer;
-    }
-
-    componentDidMount() {
-        this._mounted = true;
-    }
-
-    decideContainer() {
-        let container_name;
-
-        if (location.pathname === '/') {
-            container_name = 'search';
-        } else if (location.pathname.split('/').length === 2) {
-            container_name = 'school';
-        }
-
-        if (this._mounted) {
-            this.setState({
-                current_container: container_name
-            });
-        } else {
-            this.state = {
-                current_container: container_name
-            };
-        }
-
-    }
-
-    changeContainer(container_name) {
-        this.setState({
-            current_container: container_name
-        });
     }
 
     render() {
-        let container;
-
-        if (this.state.current_container === 'search') {
-             container = <SearchContainer
-                SchoolStore={ this.SchoolStore }
-                changeContainer={ this.changeContainer }
-             />
-        } else if (this.state.current_container === 'school') {
-             container = <SchoolContainer
-                 SchoolStore={ this.SchoolStore }
-                 NCESSCH={ location.pathname.split('/')[1] }
-             />
-        }
-
-        return container;
+        return(
+            <Router>
+                <Switch>
+                    <Route
+                        path='/'
+                        exact
+                        component={ function() {
+                            return <SearchContainer
+                                SchoolStore={ this.SchoolStore }
+                            />
+                        }.bind(this) }/>
+                    <Route
+                        path='/school/:NCESSCH(\d{12})'
+                        component={ function() {
+                            return <SchoolContainer
+                                SchoolStore={ this.SchoolStore }
+                            />
+                        }.bind(this) }
+                    />
+                </Switch>
+            </Router>
+        );
     }
 }
 

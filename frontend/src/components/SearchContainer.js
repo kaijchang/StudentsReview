@@ -23,7 +23,6 @@ export default class SearchContainer extends Component {
         };
 
         this.handleInput = this.handleInput.bind(this);
-        this.changeContainer = this.props.changeContainer;
     }
 
     handleInput(event) {
@@ -43,10 +42,9 @@ export default class SearchContainer extends Component {
                 />
                 <ListGroup>
                     {
-                        this.state.results.map(school =>
+                        this.state.results.map((school, idx) =>
                             <SearchResult
-                                changeContainer={ this.changeContainer }
-                                key={ this.state.results.indexOf(school) }
+                                key={ idx }
                                 { ...school }
                             />
                         )

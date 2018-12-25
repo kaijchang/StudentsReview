@@ -46,7 +46,7 @@ if (isDev) {
             path.join(__dirname, '..', 'frontend', 'build')
         )
     );
-    https_server.get(/\d{12}/, (req, res) => {
+    https_server.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
     });
     register(https_server);
