@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Container } from 'reactstrap';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Nav from './components/Nav';
 import SearchContainer from './components/SearchContainer';
 import SchoolContainer from './components/SchoolContainer';
 
@@ -18,27 +20,30 @@ class App extends Component {
 
     render() {
         return(
-            <Router>
-                <Switch>
-                    <Route
-                        path='/'
-                        exact
-                        component={ function() {
-                            return <SearchContainer
-                                SchoolStore={ this.SchoolStore }
+            <Container>
+                <Router>
+                    <div>
+                        <Nav/>
+                        <Switch>
+                            <Route
+                                path='/'
+                                exact
+                                component={ function() {
+                                    return <SearchContainer
+                                        SchoolStore={ this.SchoolStore }
+                                    />}.bind(this) }/>
+                            <Route
+                                path='/school/:NCESSCH(\d{12})'
+                                component={ function({ match }) {
+                                    return <SchoolContainer
+                                        SchoolStore={ this.SchoolStore }
+                                        NCESSCH={ match.params.NCESSCH }
+                                    />}.bind(this) }
                             />
-                        }.bind(this) }/>
-                    <Route
-                        path='/school/:NCESSCH(\d{12})'
-                        component={ function({ match }) {
-                            return <SchoolContainer
-                                SchoolStore={ this.SchoolStore }
-                                NCESSCH={ match.params.NCESSCH }
-                            />
-                        }.bind(this) }
-                    />
-                </Switch>
-            </Router>
+                        </Switch>
+                    </div>
+                </Router>
+            </Container>
         );
     }
 }
