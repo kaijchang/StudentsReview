@@ -27,7 +27,7 @@
     cursor: pointer;
 }
 
-.SearchResult:hover {
+.list-group-item:hover {
     background: lightblue;
 }
 

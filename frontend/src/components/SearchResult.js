@@ -7,13 +7,15 @@ export default class SearchResult extends Component {
     render() {
         const { NCESSCH, SCHNAM09, LCITY09, LSTATE09 } = this.props;
         return (
-            <ListGroupItem
+            <Link
                 className={ 'SearchResult' }
+                to={ `school/${NCESSCH}` }
+                style={{ textDecoration: 'none', color: 'black' }}
             >
-                <Link to={ `school/${NCESSCH}` } style={{ textDecoration: 'none', color: 'black',  }}>
+                <ListGroupItem>
                     { SCHNAM09.toLowerCase() } - { LCITY09.toLowerCase() }, { LSTATE09 }
-                </Link>
-            </ListGroupItem>
+                </ListGroupItem>
+            </Link>
         );
     }
 }
