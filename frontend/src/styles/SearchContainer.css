@@ -11,7 +11,7 @@
     width: 50% !important;
     font-size: 2.5vh !important;
     text-align: center;
-    top: 30%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%);
 }
@@ -19,6 +19,7 @@
 .SearchResult {
     position: relative;
     width: 50% !important;
+    font-size: 95%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -32,5 +33,5 @@
 
 .list-group {
     position: relative;
-    top: 26.5%;
+    top: 14.75%;
 }
