@@ -6,22 +6,18 @@
 }
 
 .SearchBar {
-    position: fixed;
     height: 7.5% !important;
     width: 50% !important;
     font-size: 2.5vh !important;
     text-align: center;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%);
+    margin: auto;
 }
 
 .SearchResult {
-    position: relative;
     width: 50% !important;
     font-size: 95%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
+    padding: 0;
     text-align: center;
     text-transform: capitalize;
     cursor: pointer;
@@ -29,9 +25,4 @@
 
 .list-group-item:hover {
     background: lightblue;
-}
-
-.list-group {
-    position: relative;
-    top: 14.75%;
 }

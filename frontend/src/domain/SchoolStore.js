@@ -13,6 +13,10 @@ export default class SchoolStore {
     }
 
     fetch() {
+        if (this.query === '') {
+            return this.setSchools([]);
+        }
+
         this.dataService.query({
             SCHNAM09: this.query,
             fuzzy: true,

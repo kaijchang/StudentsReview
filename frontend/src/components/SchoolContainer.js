@@ -29,7 +29,7 @@ export default class SchoolContainer extends Component {
         }
 
         const { SCHNAM09, Location } = this.state.school;
-        const [_, long, lat] = /\((-?\d{2,3}.\d{6}), (-?\d{2,3}.\d{6})\)/.exec(Location);
+        const [, long, lat] = /\((-?\d{2,3}.\d{6}), (-?\d{2,3}.\d{6})\)/.exec(Location);
 
         return (
             <Container className={ 'SchoolContainer' }>
