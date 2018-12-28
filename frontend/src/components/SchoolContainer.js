@@ -28,8 +28,7 @@ export default class SchoolContainer extends Component {
             );
         }
 
-        const { SCHNAM09, Location } = this.state.school;
-        const [, long, lat] = /\((-?\d{2,3}.\d{6}), (-?\d{2,3}.\d{6})\)/.exec(Location);
+        const { SCHNAM09, MSTREE09, MZIP09, LCITY09, MSTATE09 } = this.state.school;
 
         return (
             <Container className={ 'SchoolContainer' }>
@@ -39,7 +38,7 @@ export default class SchoolContainer extends Component {
                     className={ 'Map' }
                     width={ 600 }
                     height={ 500 }
-                    src={ `https://maps.google.com/maps?q=@${ long },${ lat }&z=15&output=embed` }/>
+                    src={ `https://maps.google.com/maps?q=${MSTREE09} ${LCITY09} ${MSTATE09} ${MZIP09}&z=15&output=embed` }/>
             </Container>
         );
     }
